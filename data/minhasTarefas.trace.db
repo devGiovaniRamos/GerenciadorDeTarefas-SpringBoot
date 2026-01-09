@@ -1,0 +1,15 @@
+2026-01-08 22:00:13.672743-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO (NOME_TAREFA)\000d\000aVALUES ([*]'Gerenciador de Tarefas)"; SQL statement:
+INSERT INTO (NOME_TAREFA)
+VALUES ('Gerenciador de Tarefas) [42000-240]
+2026-01-08 22:00:24.413587-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO [*](NOME_TAREFA)\000d\000aVALUES ('Gerenciador de Tarefas')"; expected "identifier"; SQL statement:
+INSERT INTO (NOME_TAREFA)
+VALUES ('Gerenciador de Tarefas') [42001-240]
+2026-01-08 22:00:52.556379-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO [*](ID,NOME_TAREFA)\000d\000aVALUES (1, 'Gerenciador de Tarefas')"; expected "identifier"; SQL statement:
+INSERT INTO (ID,NOME_TAREFA)
+VALUES (1, 'Gerenciador de Tarefas') [42001-240]
+2026-01-08 22:02:41.206539-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FROM TB_TAREFAS"; expected "identifier"; SQL statement:
+DELETE * FROM TB_TAREFAS [42001-240]
