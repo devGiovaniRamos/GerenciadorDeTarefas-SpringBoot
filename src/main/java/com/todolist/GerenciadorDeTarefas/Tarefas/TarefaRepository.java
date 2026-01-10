@@ -1,4 +1,6 @@
 package com.todolist.GerenciadorDeTarefas.Tarefas;
 
-public interface TarefaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TarefaRepository extends JpaRepository<TarefasModel, Long> {
 }
