@@ -18,16 +18,16 @@ public class TarefasModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_tarefa", nullable = false)
+    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "descricao_tarefa")
+    @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "data_inicio")
+    @Column(name = "inicio")
     private LocalDate data;
 
-    @Column(name = "tarefa_concluida")
+    @Column(name = "concluida")
     private boolean concluida;
 
     public TarefasModel( String nome, String descricao) {
