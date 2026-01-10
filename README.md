@@ -18,23 +18,25 @@ API REST desenvolvida para o gerenciamento de tarefas diárias, permitindo o con
 
 * Maven
 
+* Flyway
+
 ---
 
 ### **FUNCIONALIDADES**
 
-* **Cadastro de tarefas**
+* Cadastro de tarefas
 
-* **Listagem de atividades**
+* Listagem de atividades
 
-* **Atualização de status**
+* Atualização de status
 
-* **Exclusão de registros**
+* Exclusão de registros
 
-* **Persistência de dados em arquivo local**
+* Persistência de dados em arquivo local
 
 ---
 
 
 
 
-**Desenvolvido por Giovani Ramos**
+**Em desenvolvimento... by Giovani Ramos**
