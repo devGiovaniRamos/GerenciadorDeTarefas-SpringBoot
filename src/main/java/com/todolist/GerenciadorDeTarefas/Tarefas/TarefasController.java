@@ -16,17 +16,22 @@ public class TarefasController {
 
     //Cadastrar tarefa
     @PostMapping("/cadastrar")
-    public TarefasModel cadastrar(@RequestBody TarefasModel tarefasModel) {
+    public TarefasDTO cadastrar(@RequestBody TarefasDTO tarefasModel) {
         return tarefasService.cadastrarTarefa(tarefasModel);
     }
 
     //Ver tarefas
     @GetMapping("/listar")
-    public List<TarefasModel> listar() {
+    public List<TarefasDTO> listar() {
         return tarefasService.listarTarefas();
     }
 
     //Atualizar tarefa
+    @PutMapping("/atualizar/{id}")
+    public void atualizarTarefa(@PathVariable Long id, @RequestBody TarefasDTO tarefaAtualizada) {
+        tarefasService.atualizarTarefa(id, tarefaAtualizada);
+    }
+
 
     //Deletar tarefa
     @DeleteMapping("/deletar/{id}")
