@@ -1,7 +1,9 @@
 package com.todolist.GerenciadorDeTarefas.Tarefas;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +34,7 @@ public class TarefasService {
     }
 
     //Atualizar tarefa
-    public void atualizarTarefa(Long id, TarefasDTO novaTarefa) {
+    public TarefasDTO atualizarTarefa(Long id, TarefasDTO novaTarefa) {
         TarefasModel tarefaEntity = tarefaRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Tarefa não encontrado"));
         TarefasModel tarefaAtualizada = TarefasModel.builder()
@@ -44,12 +46,16 @@ public class TarefasService {
                 .data(tarefaEntity.getData())
                 .concluida(novaTarefa.isConcluida())
                 .build();
-        tarefaRepository.save(tarefaAtualizada);
-        }
-    public void deletarTarefa(Long id) {
-        tarefaRepository.deleteById(id);
+        TarefasModel salvo =  tarefaRepository.save(tarefaAtualizada);
+        return tarefasMapper.map(salvo);
     }
 
+    public void deletarTarefa(Long id) {
+        if (!tarefaRepository.existsById(id)) {
+            throw new RuntimeException( "Id não encontrado");
+        }
+        tarefaRepository.deleteById(id);
+    }
 }
 
 

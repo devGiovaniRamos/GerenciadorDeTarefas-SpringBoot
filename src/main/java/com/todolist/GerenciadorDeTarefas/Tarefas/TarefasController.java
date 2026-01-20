@@ -1,6 +1,9 @@
 package com.todolist.GerenciadorDeTarefas.Tarefas;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,31 +15,29 @@ public class TarefasController {
     @Autowired
     private TarefasService tarefasService;
 
-    //ROTAS...
-
-    //Cadastrar tarefa
     @PostMapping("/cadastrar")
-    public TarefasDTO cadastrar(@RequestBody TarefasDTO tarefasModel) {
-        return tarefasService.cadastrarTarefa(tarefasModel);
+    public ResponseEntity<String> cadastrar(@RequestBody TarefasDTO tarefasModel) {
+        TarefasDTO novaTarefa = tarefasService.cadastrarTarefa(tarefasModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Tarefa " + novaTarefa.getNome() +
+                " criada com sucesso.");
     }
 
-    //Ver tarefas
     @GetMapping("/listar")
-    public List<TarefasDTO> listar() {
-        return tarefasService.listarTarefas();
+    public ResponseEntity<List<TarefasDTO>> listar() {
+         List<TarefasDTO> tarefas = tarefasService.listarTarefas();
+         return ResponseEntity.ok(tarefas);
     }
 
-    //Atualizar tarefa
     @PutMapping("/atualizar/{id}")
-    public void atualizarTarefa(@PathVariable Long id, @RequestBody TarefasDTO tarefaAtualizada) {
-        tarefasService.atualizarTarefa(id, tarefaAtualizada);
+    public ResponseEntity<String> atualizarTarefa(@PathVariable Long id, @RequestBody TarefasDTO tarefaAtualizada) {
+        TarefasDTO novaTarefa = tarefasService.atualizarTarefa(id, tarefaAtualizada);
+        return ResponseEntity.ok("Tarefa " +novaTarefa.getNome() + " atualizada com sucesso!");
     }
 
 
-    //Deletar tarefa
     @DeleteMapping("/deletar/{id}")
-    public void deletarTarefa(@PathVariable Long id) {
+    public ResponseEntity<String> deletarTarefa(@PathVariable Long id) {
         tarefasService.deletarTarefa(id);
+        return ResponseEntity.ok("Tarefa deletada");
     }
-
 }
