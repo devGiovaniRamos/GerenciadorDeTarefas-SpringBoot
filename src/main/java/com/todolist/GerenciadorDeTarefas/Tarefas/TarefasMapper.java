@@ -13,6 +13,7 @@ public class TarefasMapper {
         tarefasModel.setDescricao(tarefasDTO.getDescricao());
         tarefasModel.setData(tarefasDTO.getData());
         tarefasModel.setConcluida(tarefasDTO.isConcluida());
+        tarefasModel.setUsuario(tarefasDTO.getUsuario());
 
         return tarefasModel;
     }
@@ -25,6 +26,7 @@ public class TarefasMapper {
         tarefasDTO.setDescricao(tarefasModel.getDescricao());
         tarefasDTO.setData(tarefasModel.getData());
         tarefasDTO.setConcluida(tarefasModel.isConcluida());
+        tarefasDTO.setUsuario(tarefasModel.getUsuario());
 
         return tarefasDTO;
     }
