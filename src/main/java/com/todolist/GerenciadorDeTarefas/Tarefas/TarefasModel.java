@@ -1,5 +1,6 @@
 package com.todolist.GerenciadorDeTarefas.Tarefas;
 
+import com.todolist.GerenciadorDeTarefas.Usuario.UsuarioModel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,10 +31,8 @@ public class TarefasModel {
     @Column(name = "concluida")
     private boolean concluida;
 
-    public TarefasModel( String nome, String descricao) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.data = LocalDate.now();
-        this.concluida = false;
-    }
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsuarioModel usuario;
+
 }
