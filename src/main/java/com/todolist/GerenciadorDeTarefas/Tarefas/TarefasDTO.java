@@ -4,7 +4,6 @@ import com.todolist.GerenciadorDeTarefas.Usuario.UsuarioModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Getter

@@ -1,5 +1,4 @@
 package com.todolist.GerenciadorDeTarefas.Tarefas;
-
 import org.springframework.stereotype.Component;
 
 @Component
