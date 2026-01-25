@@ -21,6 +21,7 @@ public class TarefasDTO {
     public TarefasDTO( String nome, String descricao, UsuarioModel usuario) {
         this.nome = nome;
         this.descricao = descricao;
+        this.data = LocalDate.now();
         this.usuario = usuario;
     }
 }

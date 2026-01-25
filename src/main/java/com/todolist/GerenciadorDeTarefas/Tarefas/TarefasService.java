@@ -1,21 +1,16 @@
 package com.todolist.GerenciadorDeTarefas.Tarefas;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
 
 @Service
 public class TarefasService {
 
     @Autowired
-    private TarefaRepository tarefaRepository;
-    private TarefasMapper tarefasMapper;
+    private final TarefaRepository tarefaRepository;
+    private final TarefasMapper tarefasMapper;
 
     public TarefasService(TarefaRepository tarefaRepository, TarefasMapper tarefasMapper) {
         this.tarefaRepository = tarefaRepository;
@@ -30,7 +25,7 @@ public class TarefasService {
 
     public List<TarefasDTO> listarTarefas() {
         List<TarefasModel> tarefas = tarefaRepository.findAll();
-        return tarefas.stream().map(tarefa -> tarefasMapper.map(tarefa)).collect(Collectors.toList());
+        return tarefas.stream().map(tarefasMapper::map).collect(Collectors.toList());
     }
 
     //Atualizar tarefa

@@ -3,7 +3,6 @@ package com.todolist.GerenciadorDeTarefas.Tarefas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +15,8 @@ public class TarefasController {
     private TarefasService tarefasService;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrar(@RequestBody TarefasDTO tarefasModel) {
-        TarefasDTO novaTarefa = tarefasService.cadastrarTarefa(tarefasModel);
+    public ResponseEntity<String> cadastrar(@RequestBody TarefasDTO tarefa) {
+        TarefasDTO novaTarefa = tarefasService.cadastrarTarefa(tarefa);
         return ResponseEntity.status(HttpStatus.CREATED).body("Tarefa " + novaTarefa.getNome() +
                 " criada com sucesso.");
     }
