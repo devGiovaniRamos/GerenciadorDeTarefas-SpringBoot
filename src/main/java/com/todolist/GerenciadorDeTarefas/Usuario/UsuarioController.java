@@ -21,8 +21,9 @@ public class UsuarioController {
     }
 
     //Trocar nome e/ou senha de usuario
+    @PutMapping("/atualizar/{id}")
     public ResponseEntity<String> atualizar(@PathVariable Long id, @RequestBody UsuarioDTO novoUsuario) {
         UsuarioDTO atualizarUsuario = usuarioService.atualizarUsuario(id, novoUsuario);
-        return ResponseEntity.ok("Usuario " + novoUsuario.getNome() + " atualizado");
+        return ResponseEntity.ok("Usuario atualizado com sucesso");
     }
 }
