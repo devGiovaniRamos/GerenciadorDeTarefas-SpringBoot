@@ -19,4 +19,18 @@ public class UsuarioService {
         usuarioModel = usuarioRepository.save(usuarioModel);
         return usuarioMapper.map(usuarioModel);
     }
+
+    public UsuarioDTO atualizarUsuario(Long id, UsuarioDTO novoUsuario) {
+        UsuarioModel antigoUusuario = usuarioRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Usuario não encontrado"));
+        UsuarioModel novoUsuarioModel = UsuarioModel.builder()
+                .id(antigoUusuario.getId())
+                .nome(novoUsuario.getNome() != null ?
+                        novoUsuario.getNome() : antigoUusuario.getNome())
+                .senha(novoUsuario.getSenha() != null ?
+                        novoUsuario.getSenha() : antigoUusuario.getSenha())
+                .build();
+        UsuarioModel salvo = usuarioRepository.save(novoUsuarioModel);
+        return usuarioMapper.map(salvo);
+    }
 }
