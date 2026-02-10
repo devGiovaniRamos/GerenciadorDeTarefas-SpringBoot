@@ -1,5 +1,6 @@
 package com.todolist.GerenciadorDeTarefas.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -8,16 +9,32 @@ public class UsuarioService {
     @Autowired
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository tarefaRepository, UsuarioMapper tarefasMapper) {
+    public UsuarioService(UsuarioRepository tarefaRepository, UsuarioMapper tarefasMapper, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = tarefaRepository;
         this.usuarioMapper = tarefasMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UsuarioDTO cadastrarUsuario(UsuarioDTO cadastrar) {
         UsuarioModel usuarioModel = usuarioMapper.map(cadastrar);
+        String senhaCriptografada = passwordEncoder.encode(usuarioModel.getSenha());
+        usuarioModel.setSenha(senhaCriptografada);
         usuarioModel = usuarioRepository.save(usuarioModel);
         return usuarioMapper.map(usuarioModel);
+    }
+
+    public UsuarioDTO logarUsuario(UsuarioDTO usuario) {
+        UsuarioModel usuarioModel = usuarioMapper.map(usuario);
+        usuarioModel = usuarioRepository.findByNome(usuario.getNome()).orElseThrow(() -> new RuntimeException(
+                "Usuário não encontrado"));
+        if (passwordEncoder.matches(usuario.getSenha(), usuarioModel.getSenha())) {
+            return usuarioMapper.map(usuarioModel);
+        }
+        else {
+            throw new RuntimeException("Senha inválida");
+        }
     }
 
     public UsuarioDTO atualizarUsuario(Long id, UsuarioDTO novoUsuario) {

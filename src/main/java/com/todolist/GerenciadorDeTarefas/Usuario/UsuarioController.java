@@ -20,6 +20,12 @@ public class UsuarioController {
                 " cadastrado");
     }
 
+    //login usuario
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UsuarioDTO usuarioDTO) {
+
+    }
+
     //Trocar nome e/ou senha de usuario
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<String> atualizar(@PathVariable Long id, @RequestBody UsuarioDTO novoUsuario) {
