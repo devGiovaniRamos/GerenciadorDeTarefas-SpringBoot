@@ -1,10 +1,13 @@
 package com.todolist.GerenciadorDeTarefas.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private final UsuarioRepository usuarioRepository;
@@ -25,17 +28,17 @@ public class UsuarioService {
         return usuarioMapper.map(usuarioModel);
     }
 
-    public UsuarioDTO logarUsuario(UsuarioDTO usuario) {
-        UsuarioModel usuarioModel = usuarioMapper.map(usuario);
-        usuarioModel = usuarioRepository.findByNome(usuario.getNome()).orElseThrow(() -> new RuntimeException(
-                "Usuário não encontrado"));
-        if (passwordEncoder.matches(usuario.getSenha(), usuarioModel.getSenha())) {
-            return usuarioMapper.map(usuarioModel);
-        }
-        else {
-            throw new RuntimeException("Senha inválida");
-        }
-    }
+//    public UsuarioDTO logarUsuario(UsuarioDTO usuario) {
+//        UsuarioModel usuarioModel = usuarioMapper.map(usuario);
+//        usuarioModel = usuarioRepository.findByNome(usuario.getNome()).orElseThrow(() -> new RuntimeException(
+//                "Usuário não encontrado"));
+//        if (passwordEncoder.matches(usuario.getSenha(), usuarioModel.getSenha())) {
+//            return usuarioMapper.map(usuarioModel);
+//        }
+//        else {
+//            throw new RuntimeException("Senha inválida");
+//        }
+//    }
 
     public UsuarioDTO atualizarUsuario(Long id, UsuarioDTO novoUsuario) {
         UsuarioModel antigoUusuario = usuarioRepository.findById(id).orElseThrow(() ->
@@ -49,5 +52,10 @@ public class UsuarioService {
                 .build();
         UsuarioModel salvo = usuarioRepository.save(novoUsuarioModel);
         return usuarioMapper.map(salvo);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return usuarioRepository.findByNome(username).orElseThrow(() -> new UsernameNotFoundException("Usuário ou senha inválido"));
     }
 }
