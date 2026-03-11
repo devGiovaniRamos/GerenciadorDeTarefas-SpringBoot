@@ -18,7 +18,8 @@ public class TokenService {
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
         return JWT.create()
-                .withSubject(usuarioModel.getNome())
+                .withSubject(usuarioModel.getUsername())
+                .withClaim("userId", usuarioModel.getId())
                 .withExpiresAt(Instant.now().plusSeconds(86400))
                 .sign(algorithm);
     }

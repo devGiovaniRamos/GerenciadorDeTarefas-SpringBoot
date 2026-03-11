@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
@@ -38,6 +37,8 @@ public class UsuarioController {
         UsuarioModel usuario = (UsuarioModel) authentication.getPrincipal();
 
         String token = tokenService.geradorToken(usuario);
+
+        return ResponseEntity.ok(token);
     }
 
     //Trocar nome e/ou senha de usuario
