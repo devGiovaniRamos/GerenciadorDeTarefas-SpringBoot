@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tarefa")
+@CrossOrigin(origins = "*")
 public class TarefasController {
 
     @Autowired
